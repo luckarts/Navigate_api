@@ -7,7 +7,7 @@ En tant qu' utilisateur,
 Je veux pouvoir avoir l'itinéraire d'un point A vers un point B
 Afin que je puisse voir l'ordre complet des transports .
 
-# Lsite des Fonctions du Service :
+# Liste des Fonctions du Service :
 
 - une fonction pour identifier le point de départ de l'itineraire
 - une fonction pour récupérer la prochaine ville dans l'itinéraire.
