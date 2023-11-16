@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use App\Exceptions\ApiException;
 use App\Services\ItinaryService;
 
 class FindDepartureIntinaryTest extends TestCase
@@ -109,9 +110,10 @@ class FindDepartureIntinaryTest extends TestCase
      */
     public function test_find_departure_itinary_with_wrong_datas(array $datas): void
     {
+        $this->expectException(ApiException::class);
+
         $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $this->assertIsArray($step_departure);
-        $this->assertEmpty($step_departure);
+        $itinaryService->find_departure_itinary($datas);
+
      }
 }

@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use App\Exceptions\ApiException;
 use App\Services\ItinaryService;
 
-class CreateIntinaryTest extends TestCase
+class CreateItinaryTest extends TestCase
 {
 // Use Case 1 Valid
 // Use Case 2 No Itinary
@@ -108,9 +108,9 @@ class CreateIntinaryTest extends TestCase
      */
     public function test_create_intinary_with_wrong_datas(array $datas): void
     {
-        $itinaryService = new ItinaryService();
-        $itinerarySteps = $itinaryService->create_itirary($datas);
-        $this->assertIsArray($itinerarySteps);
         $this->expectException(ApiException::class);
+
+        $itinaryService = new ItinaryService();
+        $itinaryService->create_itirary($datas);
     }
 }

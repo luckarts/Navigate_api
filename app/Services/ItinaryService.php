@@ -1,6 +1,9 @@
 <?php
 namespace App\Services;
 
+use App\Exceptions\ApiException;
+
+
 class ItinaryService {
 
     /**
@@ -18,7 +21,7 @@ class ItinaryService {
      *
      * @return array
      */
-    public function find_departure_itinary(array $itinary): array
+    public function find_departure_itinary(array $itinary)
     {
         $destinations = [];
         if(empty($itinary)){
@@ -26,11 +29,12 @@ class ItinaryService {
         }
 
         foreach ($itinary as $step){
-            if(isset($step["arrival"])) $destinations[] = $step["arrival"];
+            if(!isset($step['arrival']) || !isset($step["departure"])) throw  new ApiException("An error has occurred, wrong datas");
+            $destinations[] = $step["arrival"];
         }
 
         foreach ($itinary as $step){
-            if(isset($step["departure"]) && !in_array($step["departure"], $destinations )) return $step;
+            if(!in_array($step["departure"], $destinations )) return $step;
         }
 
         return [];
@@ -48,7 +52,7 @@ class ItinaryService {
             return [];
         }
         foreach($itinary as $step) {
-            if($this->extract_city(isset($step['departure'])) === $this->extract_city(isset($departure["arrival"]))) {
+            if($this->extract_city($step['departure']) === $this->extract_city($departure["arrival"])) {
                 return $step;
             }
         };
@@ -62,7 +66,17 @@ class ItinaryService {
     */
    public function create_itirary(array $itinary): array
     {
-        return [];
+        $order_itinary =[];
+        $departure = $this->find_departure_itinary($itinary);
+        $next_departure = $this->find_next_step($departure, $itinary);
+
+        while ($departure !== []) {
+
+            $order_itinary[] = $departure;
+            $next_departure = $this->find_next_step($departure, $itinary);
+            $departure = $next_departure;
+        }
+        return  $order_itinary;
     }
 
 }

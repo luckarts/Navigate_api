@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use App\Exceptions\ApiException;
 use App\Services\ItinaryService;
 
 class GetNextStepItinaryTest extends TestCase
@@ -161,11 +162,12 @@ class GetNextStepItinaryTest extends TestCase
      */
     public function test_get_next_step_intinary_with_wrong_datas($datas)
     {
+        $this->expectException(ApiException::class);
+
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
-        $next_step = $itinaryService->find_next_step($step_departure, $datas);
-        $this->assertIsArray($next_step);
-        $this->assertEmpty($next_step);
+        $itinaryService->find_next_step($step_departure, $datas);
+
     }
 
 
