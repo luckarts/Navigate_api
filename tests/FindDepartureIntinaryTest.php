@@ -107,11 +107,12 @@ class FindDepartureIntinaryTest extends TestCase
      * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
-    public function test_find_departure_intinary_with_wrong_datas(array $datas): void
+    public function test_find_departure_itinary_with_wrong_datas(array $datas): void
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
-        $this->assertIsArray($step_departure);
-        $this->expectExceptionMessage(ApiException::class);
+        $response = ["error"=>true,
+        "message"=> "Une erreur s'est produite. Veuillez vérifier votre requête."];
+        $this->assertEquals(json_encode($response),$step_departure);
     }
 }

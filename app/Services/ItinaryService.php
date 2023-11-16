@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
 
+use App\Exceptions\ApiException;
+
 class ItinaryService {
 
     /**
@@ -8,9 +10,25 @@ class ItinaryService {
      *
      * @return array
      */
-    public function find_departure_itinary(array $itinary): array
+    public function find_departure_itinary(array $itinary): array|string
     {
-        return [];
+        $destinations = [];
+        if(empty($itinary)){
+            return [];
+            $error = new ApiException(400, "Une erreur s'est produite. Veuillez vérifier votre requête.");
+            $error->throwError();
+        }
+
+        foreach ($itinary as $step){
+            if(isset($step["arrival"])) $destinations[] = $step["arrival"];
+        }
+
+        foreach ($itinary as $step){
+            if(isset($step["departure"]) && !in_array($step["departure"], $destinations )) return $step;
+        }
+
+        $error = new ApiException(400, "Une erreur s'est produite. Veuillez vérifier votre requête.");
+        return $error->throwError();
     }
 
     /**
