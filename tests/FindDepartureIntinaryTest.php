@@ -111,8 +111,7 @@ class FindDepartureIntinaryTest extends TestCase
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
-        $response = ["error"=>true,
-        "message"=> "Une erreur s'est produite. Veuillez vérifier votre requête."];
-        $this->assertEquals(json_encode($response),$step_departure);
-    }
+        $this->assertIsArray($step_departure);
+        $this->assertEmpty($step_departure);
+     }
 }

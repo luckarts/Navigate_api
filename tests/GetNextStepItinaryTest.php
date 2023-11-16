@@ -57,7 +57,7 @@ class GetNextStepItinaryTest extends TestCase
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
         $next_step = $itinaryService->find_next_step($step_departure, $datas);
-        $this->assertIsArray($$next_step);
+        $this->assertIsArray($next_step);
     }
 
 
@@ -130,13 +130,14 @@ class GetNextStepItinaryTest extends TestCase
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
-        $next_step = $itinaryService->find_next_step($step_departure, $datas);        $this->assertIsArray($step_departure);
+        $next_step = $itinaryService->find_next_step($step_departure, $datas);
+        $this->assertIsArray($next_step);
     }
 
      /**
      * Provides wrong datas to service test.
      */
-    public static function wrong_datas_provider(): array
+    public static function wrong_datas_provider()
     {
         return  [['datas' => [
                                 [
@@ -156,12 +157,14 @@ class GetNextStepItinaryTest extends TestCase
      * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
-    public function test_get_next_step_intinary_with_wrong_datas($datas): void
+    public function test_get_next_step_intinary_with_wrong_datas($datas)
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
         $next_step = $itinaryService->find_next_step($step_departure, $datas);
-        $this->expectException(ApiException::class);
+        $this->assertIsArray($next_step);
+        $this->assertEmpty($next_step);
     }
+
 
 }

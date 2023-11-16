@@ -1,22 +1,28 @@
 <?php
 namespace App\Services;
 
-use App\Exceptions\ApiException;
-
 class ItinaryService {
+
+    /**
+     * @param mixed $chaine string
+     *
+     * @return string
+     */
+    public function extract_city(string $chaine)
+    {
+      return preg_replace('/Aéroport de /', '', $chaine);
+    }
 
     /**
      * @param mixed $itinary
      *
      * @return array
      */
-    public function find_departure_itinary(array $itinary): array|string
+    public function find_departure_itinary(array $itinary): array
     {
         $destinations = [];
         if(empty($itinary)){
             return [];
-            $error = new ApiException(400, "Une erreur s'est produite. Veuillez vérifier votre requête.");
-            $error->throwError();
         }
 
         foreach ($itinary as $step){
@@ -27,8 +33,7 @@ class ItinaryService {
             if(isset($step["departure"]) && !in_array($step["departure"], $destinations )) return $step;
         }
 
-        $error = new ApiException(400, "Une erreur s'est produite. Veuillez vérifier votre requête.");
-        return $error->throwError();
+        return [];
     }
 
     /**
@@ -39,9 +44,17 @@ class ItinaryService {
     */
    public function find_next_step(array $departure, array $itinary): array
    {
-    return [];
-   }
+        if(empty($itinary) || empty($departure)){
+            return [];
+        }
+        foreach($itinary as $step) {
+            if($this->extract_city(isset($step['departure'])) === $this->extract_city(isset($departure["arrival"]))) {
+                return $step;
+            }
+        };
 
+        return [];
+    }
    /**
     * @param mixed $itinary
     *
