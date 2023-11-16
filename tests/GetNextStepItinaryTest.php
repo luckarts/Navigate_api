@@ -58,6 +58,8 @@ class GetNextStepItinaryTest extends TestCase
         $step_departure = $itinaryService->find_departure_itinary($datas);
         $next_step = $itinaryService->find_next_step($step_departure, $datas);
         $this->assertIsArray($next_step);
+        $this->assertEquals("Barcelone", $next_step["departure"]);
+
     }
 
 
