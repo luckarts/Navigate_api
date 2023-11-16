@@ -107,8 +107,9 @@ class GetNextStepItinaryTest extends TestCase
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
-        $this->assertIsArray($step_departure);
-        $this->assertEquals("Madrid", $step_departure["departure"]);
+        $next_step = $itinaryService->find_next_step($step_departure, $datas);
+        $this->assertIsArray($next_step);
+        $this->assertEquals("Madrid", $next_step["departure"]);
     }
 
     /**
@@ -129,7 +130,7 @@ class GetNextStepItinaryTest extends TestCase
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
-        $this->assertIsArray($step_departure);
+        $next_step = $itinaryService->find_next_step($step_departure, $datas);        $this->assertIsArray($step_departure);
     }
 
     /**
@@ -150,7 +151,7 @@ class GetNextStepItinaryTest extends TestCase
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
-        $this->assertIsArray($step_departure);
+        $next_step = $itinaryService->find_next_step($step_departure, $datas);        $this->assertIsArray($step_departure);
         $this->expectException(ApiException::class);
 
     }
@@ -175,13 +176,14 @@ class GetNextStepItinaryTest extends TestCase
      * @test
      * Use Case get wrong datas to provider
      * @covers \App\Services\ItinaryService::find_next_step
-     * @incorrect_datas_provider
+     * @wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
     public function test_get_next_step_intinary_with_wrong_datas($datas)
     {
         $itinaryService = new ItinaryService();
-        $itinaryService->find_departure_itinary($datas);
+        $step_departure = $itinaryService->find_departure_itinary($datas);
+        $next_step = $itinaryService->find_next_step($step_departure, $datas);
         $this->expectException(ApiException::class);
     }
 

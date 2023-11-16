@@ -6,32 +6,32 @@ class ItinaryService {
     /**
      * @param mixed $itinary
      *
-     * @return //Step
+     * @return array
      */
-    public function find_departure_itinary($itinary)
+    public function find_departure_itinary(array $itinary): array
     {
-
+        return [];
     }
 
     /**
     * @param mixed $departure
     * @param mixed $itinary
     *
-    * @return //Step
+    * @return array
     */
-   public function find_next_step($departure, $itinary)
+   public function find_next_step(array $departure, array $itinary): array
    {
-
+    return [];
    }
 
    /**
     * @param mixed $itinary
     *
-    * @return //Itinary
+    * @return array
     */
-   public function create_itirary($itinary)
+   public function create_itirary(array $itinary): array
     {
-
+        return [];
     }
 
 }

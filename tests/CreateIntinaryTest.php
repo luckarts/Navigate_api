@@ -126,7 +126,7 @@ class CreateIntinaryTest extends TestCase
      * @test
      * Use Case
      * @covers \App\Services\ItinaryService::create_itirary
-     * @incorrect_datas_provider
+     * @wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
     public function test_create_intinary_with_wrong_datas(array $datas) : void

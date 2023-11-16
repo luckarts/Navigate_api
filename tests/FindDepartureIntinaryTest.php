@@ -125,7 +125,7 @@ class FindDepartureIntinaryTest extends TestCase
      * @test
      * Use Case
      * @covers \App\Services\ItinaryService::find_departure_itinary
-     * @incorrect_datas_provider
+     * @wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
     public function test_find_departure_intinary_with_wrong_datas(array $datas): void
