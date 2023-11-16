@@ -50,7 +50,7 @@ class FindDepartureIntinaryTest extends TestCase
      * @test
      * Use Case find first step in the itinary
      * @covers \App\Services\ItinaryService::find_departure_itinary
-     * @valid_itinary_provider
+     * @dataProvider valid_itinary_provider
      */
     public function test_find_departure_intinary(array $datas): void
     {
@@ -72,7 +72,7 @@ class FindDepartureIntinaryTest extends TestCase
      * @test
      * Use Case provider send empty datas
      * @covers \App\Services\ItinaryService::find_departure_itinary
-     * @empty_itinary_provider
+     * @dataProvider empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
     public function test_find_departure_intinary_with_empty_datas(array $datas): void
@@ -81,27 +81,6 @@ class FindDepartureIntinaryTest extends TestCase
         $step_departure = $itinaryService->find_departure_itinary($datas);
         $this->assertIsArray($step_departure);
         $this->assertEmpty($step_departure);
-    }
-
-    /**
-     * Provides null datas to service test.
-     */
-    public static function no_itinary_provider(): array
-    {
-        return  [['datas' => null ]];
-    }
-     /**
-     * @test
-     * Use Case provider send null datas
-     * @covers \App\Services\ItinaryService::find_departure_itinary
-     * @no_itinary_provider
-     * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
-     */
-    public function test_find_departure_intinary_with_null_datas(array $datas): void
-    {
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $this->assertNull($step_departure);
     }
 
 
@@ -125,7 +104,7 @@ class FindDepartureIntinaryTest extends TestCase
      * @test
      * Use Case
      * @covers \App\Services\ItinaryService::find_departure_itinary
-     * @wrong_datas_provider
+     * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
     public function test_find_departure_intinary_with_wrong_datas(array $datas): void

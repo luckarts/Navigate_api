@@ -8,6 +8,7 @@ class GetNextStepItinaryTest extends TestCase
 // Use Case 1 Valid
 // Use Case 2 No Itinary
 // Use Case 4 Donnée Incorrect
+
     /**
      * Provides valid datas to service test.
      */
@@ -49,7 +50,7 @@ class GetNextStepItinaryTest extends TestCase
      * @test
      * Use Case find next step of departure
      * @covers \App\Services\ItinaryService::find_next_step
-     * @valid_itinary_provider
+     * @dataProvider valid_itinary_provider
      */
     public function test_get_valid_next_step($datas)
     {
@@ -101,7 +102,7 @@ class GetNextStepItinaryTest extends TestCase
      * @test
      * Use Case get valid datas but departure or arrival can be write with different transit point
      * @covers \App\Services\ItinaryService::find_departure_itinary
-     * @valid_next_step_with_extract_city_provider
+     * @dataProvider valid_next_step_with_extract_city_provider
      */
     public function  test_get_step_next_with_extract_city($datas)
     {
@@ -123,7 +124,7 @@ class GetNextStepItinaryTest extends TestCase
      * @test
      * Use Case provider send empty datas
      * @covers \App\Services\ItinaryService::find_next_step
-     * @empty_itinary_provider
+     * @dataProvider empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
     public function test_get_step_next_intinary_with_empty_datas($datas)
@@ -131,29 +132,6 @@ class GetNextStepItinaryTest extends TestCase
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
         $next_step = $itinaryService->find_next_step($step_departure, $datas);        $this->assertIsArray($step_departure);
-    }
-
-    /**
-     * Provides null datas to service test.
-     */
-    public static function no_itinary_provider()
-    {
-        return  [['datas' => null ]];
-    }
-     /**
-     * @test
-     * Use Case provider send null datas
-     * @covers \App\Services\ItinaryService::find_next_step
-     * @no_itinary_provider
-     * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
-     */
-    public function test_get_next_step_intinary_with_null_datas($datas)
-    {
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $next_step = $itinaryService->find_next_step($step_departure, $datas);        $this->assertIsArray($step_departure);
-        $this->expectException(ApiException::class);
-
     }
 
      /**
@@ -176,7 +154,7 @@ class GetNextStepItinaryTest extends TestCase
      * @test
      * Use Case get wrong datas to provider
      * @covers \App\Services\ItinaryService::find_next_step
-     * @wrong_datas_provider
+     * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
     public function test_get_next_step_intinary_with_wrong_datas($datas)

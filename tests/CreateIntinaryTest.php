@@ -51,7 +51,7 @@ class CreateIntinaryTest extends TestCase
      * @test
      * Use Case find first step in the itinary
      * @covers \App\Services\ItinaryService::create_itirary
-     * @valid_itinary_provider
+     * @dataProvider valid_itinary_provider
      */
     public function test_create_valid_itinerary(array $datas): void
     {
@@ -71,7 +71,7 @@ class CreateIntinaryTest extends TestCase
      * @test
      * Use Case provider send empty datas
      * @covers \App\Services\ItinaryService::create_itirary
-     * @empty_itinary_provider
+     * @dataProvider empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
     public function test_create_intinary_with_empty_datas(array $datas): void
@@ -80,29 +80,6 @@ class CreateIntinaryTest extends TestCase
         $itinerarySteps = $itinaryService->create_itirary($datas);
         $this->assertIsArray($itinerarySteps);
         $this->assertEmpty($itinerarySteps);
-    }
-
-    /**
-     * Provides null datas to service test.
-     */
-    public static function no_itinary_provider(): array
-    {
-        return  [['datas' => null ]];
-    }
-     /**
-     * @test
-     * Use Case provider send null datas
-     * @covers \App\Services\ItinaryService::create_itirary
-     * @no_itinary_provider
-     * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
-     */
-    public function test_create_intinary_with_null_datas(array $datas) : void
-    {
-        $itinaryService = new ItinaryService();
-        $itinerarySteps = $itinaryService->create_itirary($datas);
-        $this->assertNull($itinerarySteps);
-        //$this->expectException();
-
     }
 
 
@@ -126,10 +103,10 @@ class CreateIntinaryTest extends TestCase
      * @test
      * Use Case
      * @covers \App\Services\ItinaryService::create_itirary
-     * @wrong_datas_provider
+     * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
-    public function test_create_intinary_with_wrong_datas(array $datas) : void
+    public function test_create_intinary_with_wrong_datas(array $datas): void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);

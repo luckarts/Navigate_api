@@ -9,6 +9,7 @@ class ApiExceptionTest extends TestCase
 
     /**
      * @test
+     * @covers \App\Exceptions\ApiException::throwError
      * Use Case return error message
      * $error = new ApiException(int $code, string $message)
      * @return void
