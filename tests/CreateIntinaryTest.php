@@ -13,7 +13,7 @@ class CreateIntinaryTest extends TestCase
     /**
      * Provides valid datas to service test.
      */
-    public static function valid_itinary_provider():array
+    public static function valid_itinary_provider(): array
     {
         return  [
                     [
@@ -53,7 +53,7 @@ class CreateIntinaryTest extends TestCase
      * @covers \App\Services\ItinaryService::create_itirary
      * @valid_itinary_provider
      */
-    public function test_create_valid_itinerary($datas):void
+    public function test_create_valid_itinerary(array $datas): void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);
@@ -63,7 +63,7 @@ class CreateIntinaryTest extends TestCase
     /**
      * Provides empty datas to service test.
      */
-    public static function empty_itinary_provider():array
+    public static function empty_itinary_provider(): array
     {
         return  [['datas' => [] ]];
     }
@@ -74,7 +74,7 @@ class CreateIntinaryTest extends TestCase
      * @empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
-    public function test_create_intinary_with_empty_datas($datas)
+    public function test_create_intinary_with_empty_datas(array $datas): void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);
@@ -85,7 +85,7 @@ class CreateIntinaryTest extends TestCase
     /**
      * Provides null datas to service test.
      */
-    public static function no_itinary_provider()
+    public static function no_itinary_provider(): array
     {
         return  [['datas' => null ]];
     }
@@ -96,7 +96,7 @@ class CreateIntinaryTest extends TestCase
      * @no_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
-    public function test_create_intinary_with_null_datas($datas) : void
+    public function test_create_intinary_with_null_datas(array $datas) : void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);
@@ -109,7 +109,7 @@ class CreateIntinaryTest extends TestCase
      /**
      * Provides incorrect datas to service test.
      */
-    public static function wrong_datas_provider()
+    public static function wrong_datas_provider(): array
     {
         return  [['datas' => [
                                 [
@@ -129,7 +129,7 @@ class CreateIntinaryTest extends TestCase
      * @incorrect_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
-    public function test_create_intinary_with_wrong_datas($datas) : void
+    public function test_create_intinary_with_wrong_datas(array $datas) : void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);
