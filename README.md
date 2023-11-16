@@ -18,12 +18,8 @@ Afin que je puisse voir l'ordre complet des transports .
 # Écrire et exécuter des tests unitaires pour les trois fonctions.
 
 - [] Assurer la couverture de tous les cas possibles.
-  - [] Un itineraire peux avoir des donnée valide.
+  - [] Un itineraire doit avoir des données valide.
   - [] Un itineraire peux ne pas avoir de données.
-  - [] Un itineraire peux etre incomplete.
-    - deux meme points de depart,
-    - deux meme points de arrivée,
-    - deux points de départ differents
 - [] Un itineraire peux de mauvaise donnée.
 - [] Gestion des Erreurs lorsque l'itineraires est invalid
 - [] Les tests doivent etre faux car pas d'algorithme sous-jacent

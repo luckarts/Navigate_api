@@ -151,6 +151,8 @@ class GetNextStepItinaryTest extends TestCase
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
         $this->assertIsArray($step_departure);
+        $this->expectException(ApiException::class);
+
     }
 
      /**
@@ -179,8 +181,8 @@ class GetNextStepItinaryTest extends TestCase
     public function test_get_next_step_intinary_with_wrong_datas($datas)
     {
         $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $this->assertIsArray($step_departure);
+        $itinaryService->find_departure_itinary($datas);
+        $this->expectException(ApiException::class);
     }
 
 }

@@ -1,6 +1,7 @@
 I<?php
 
 use PHPUnit\Framework\TestCase;
+use App\Exceptions\ApiException;
 use App\Services\ItinaryService;
 
 class CreateIntinaryTest extends TestCase
@@ -12,7 +13,7 @@ class CreateIntinaryTest extends TestCase
     /**
      * Provides valid datas to service test.
      */
-    public static function valid_itinary_provider()
+    public static function valid_itinary_provider():array
     {
         return  [
                     [
@@ -52,7 +53,7 @@ class CreateIntinaryTest extends TestCase
      * @covers \App\Services\ItinaryService::create_itirary
      * @valid_itinary_provider
      */
-    public function test_create_valid_itinerary($datas)
+    public function test_create_valid_itinerary($datas):void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);
@@ -62,7 +63,7 @@ class CreateIntinaryTest extends TestCase
     /**
      * Provides empty datas to service test.
      */
-    public static function empty_itinary_provider()
+    public static function empty_itinary_provider():array
     {
         return  [['datas' => [] ]];
     }
@@ -95,7 +96,7 @@ class CreateIntinaryTest extends TestCase
      * @no_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
-    public function test_create_intinary_with_null_datas($datas)
+    public function test_create_intinary_with_null_datas($datas) : void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);
@@ -128,11 +129,11 @@ class CreateIntinaryTest extends TestCase
      * @incorrect_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
-    public function test_create_intinary_with_wrong_datas($datas)
+    public function test_create_intinary_with_wrong_datas($datas) : void
     {
         $itinaryService = new ItinaryService();
         $itinerarySteps = $itinaryService->create_itirary($datas);
         $this->assertIsArray($itinerarySteps);
-        //$this->expectException();
+        $this->expectException(ApiException::class);
     }
 }

@@ -12,7 +12,7 @@ class FindDepartureIntinaryTest extends TestCase
     /**
      * Provides valid datas to service test.
      */
-    public static function valid_itinary_provider()
+    public static function valid_itinary_provider(): array
     {
         return  [
                     [
@@ -52,7 +52,7 @@ class FindDepartureIntinaryTest extends TestCase
      * @covers \App\Services\ItinaryService::find_departure_itinary
      * @valid_itinary_provider
      */
-    public function test_find_departure_intinary($datas)
+    public function test_find_departure_intinary($datas): void
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
@@ -64,7 +64,7 @@ class FindDepartureIntinaryTest extends TestCase
     /**
      * Provides empty datas to service test.
      */
-    public static function empty_itinary_provider()
+    public static function empty_itinary_provider(): array
     {
         return  [['datas' => [] ]];
     }
@@ -75,7 +75,7 @@ class FindDepartureIntinaryTest extends TestCase
      * @empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
-    public function test_find_departure_intinary_with_empty_datas($datas)
+    public function test_find_departure_intinary_with_empty_datas($datas): void
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
@@ -86,7 +86,7 @@ class FindDepartureIntinaryTest extends TestCase
     /**
      * Provides null datas to service test.
      */
-    public static function no_itinary_provider()
+    public static function no_itinary_provider(): array
     {
         return  [['datas' => null ]];
     }
@@ -97,7 +97,7 @@ class FindDepartureIntinaryTest extends TestCase
      * @no_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
-    public function test_find_departure_intinary_with_null_datas($datas)
+    public function test_find_departure_intinary_with_null_datas($datas): void
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
@@ -108,7 +108,7 @@ class FindDepartureIntinaryTest extends TestCase
      /**
      * Provides wrong datas to service test.
      */
-    public static function wrong_datas_provider()
+    public static function wrong_datas_provider(): array
     {
         return  [['datas' => [
                                 [
@@ -128,11 +128,11 @@ class FindDepartureIntinaryTest extends TestCase
      * @incorrect_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
-    public function test_find_departure_intinary_with_wrong_datas($datas)
+    public function test_find_departure_intinary_with_wrong_datas($datas): void
     {
         $itinaryService = new ItinaryService();
         $step_departure = $itinaryService->find_departure_itinary($datas);
         $this->assertIsArray($step_departure);
-       // $this->expectExceptionMessage($message);
+        $this->expectExceptionMessage(ApiException::class);
     }
 }
