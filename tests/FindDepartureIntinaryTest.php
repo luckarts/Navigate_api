@@ -6,6 +6,7 @@ namespace App\Tests;
 use PHPUnit\Framework\TestCase;
 use App\Exceptions\ApiException;
 use App\Services\ItinaryService;
+use Collections\ItinaryCollection;
 
 class FindDepartureIntinaryTest extends TestCase
 {
@@ -53,13 +54,13 @@ class FindDepartureIntinaryTest extends TestCase
      /**
      * @test
      * Use Case find first step in the itinary
-     * @covers \App\Services\ItinaryService::find_departure_itinary
+     * @covers \App\Collections\ItinaryCollection::find_departure_itinary
      * @dataProvider valid_itinary_provider
      */
     public function test_find_departure_intinary(array $datas): void
     {
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $step_departure = $itinaryCollection->find_departure_itinary($datas);
         $this->assertIsArray($step_departure);
         $this->assertEquals("Madrid", $step_departure["departure"]);
     }
@@ -75,14 +76,14 @@ class FindDepartureIntinaryTest extends TestCase
      /**
      * @test
      * Use Case provider send empty datas
-     * @covers \App\Services\ItinaryService::find_departure_itinary
+     * @covers \App\Collections\ItinaryCollection::find_departure_itinary
      * @dataProvider empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
     public function test_find_departure_intinary_with_empty_datas(array $datas): void
     {
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $step_departure = $itinaryCollection->find_departure_itinary($datas);
         $this->assertIsArray($step_departure);
         $this->assertEmpty($step_departure);
     }
@@ -107,7 +108,7 @@ class FindDepartureIntinaryTest extends TestCase
      /**
      * @test
      * Use Case
-     * @covers \App\Services\ItinaryService::find_departure_itinary
+     * @covers \App\Collections\ItinaryCollection::find_departure_itinary
      * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
@@ -115,8 +116,8 @@ class FindDepartureIntinaryTest extends TestCase
     {
         $this->expectException(ApiException::class);
 
-        $itinaryService = new ItinaryService();
-        $itinaryService->find_departure_itinary($datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $itinaryCollection->find_departure_itinary($datas);
 
      }
 }

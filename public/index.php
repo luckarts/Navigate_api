@@ -13,15 +13,20 @@ if($_ENV['ENV'] == "dev") {
     ini_set('display_errors', 1);
 }
 
-$controller = new StepsController();
-
 
 try{
+
+    $controller = new StepsController();
+    // return to json format Api
     header('Content-Type: application/json');
     echo json_encode($controller->index());
 
 }catch (\Exception $e) {
-    echo $e->getMessage();
+
+    echo json_encode([
+        'error' => true,
+        'message' => $e->getMessage()
+    ]);
 }
 
 

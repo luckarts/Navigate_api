@@ -2,24 +2,38 @@
 
 namespace Controllers;
 
-use App\Services\ItinaryService;
+use Collections\ItinaryCollection;
 
 
+/**
+ * Handles requests related to itinerary steps.
+ */
 class StepsController
 {
-    private $itineraireService;
 
-    public function __construct() {
-        $this->itineraireService = new ItinaryService();
+    public function index()
+    {
+         // Get the itinerary data from the JSON file
+        $itineraryData = $this->getItineraryData();
+
+        // Create the itinerary collection
+        $itineraryCollection = new ItinaryCollection($itineraryData);
+
+        return  $itineraryCollection->create_itirary();
     }
 
-    public function index() {
-        $datas = __DIR__."/../data/itineraires.json";
-        if (!file_exists($datas)) {
-             echo json_encode([]);
-        }
-       return  $this->itineraireService->create_itirary(json_decode(file_get_contents($datas), true));
+    /**
+     * Load datas fake bdd
+     * @return array
+     */
+    private function getItineraryData()
+    {
 
+        $datas = __DIR__ . "/../data/itineraires.json";
+        if (!file_exists($datas)) {
+            return [];
+        }
+        return json_decode(file_get_contents($datas), true);
     }
 
 }

@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use App\Exceptions\ApiException;
 use App\Services\ItinaryService;
+use Collections\ItinaryCollection;
 
 class GetNextStepItinaryTest extends TestCase
 {
@@ -50,14 +51,14 @@ class GetNextStepItinaryTest extends TestCase
      /**
      * @test
      * Use Case find next step of departure
-     * @covers \App\Services\ItinaryService::find_next_step
+     * @covers \App\Collections\ItinaryCollection::find_next_step
      * @dataProvider valid_itinary_provider
      */
     public function test_get_valid_next_step(array $datas): void
     {
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $next_step = $itinaryService->find_next_step($step_departure, $datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $step_departure = $itinaryCollection->find_departure_itinary();
+        $next_step = $itinaryCollection->find_next_step($step_departure);
         $this->assertIsArray($next_step);
         $this->assertEquals("Barcelone", $next_step["departure"]);
 
@@ -104,14 +105,14 @@ class GetNextStepItinaryTest extends TestCase
      /**
      * @test
      * Use Case get valid datas but departure or arrival can be write with different transit point
-     * @covers \App\Services\ItinaryService::find_departure_itinary
+     * @covers \App\Collections\ItinaryCollection::find_next_step
      * @dataProvider valid_next_step_with_extract_city_provider
      */
     public function  test_get_step_next_with_extract_city($datas): void
     {
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $next_step = $itinaryService->find_next_step($step_departure, $datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $step_departure = $itinaryCollection->find_departure_itinary();
+        $next_step = $itinaryCollection->find_next_step($step_departure);
         $this->assertIsArray($next_step);
     }
 
@@ -125,15 +126,15 @@ class GetNextStepItinaryTest extends TestCase
      /**
      * @test
      * Use Case provider send empty datas
-     * @covers \App\Services\ItinaryService::find_next_step
+     * @covers \App\Collections\ItinaryCollection::find_next_step
      * @dataProvider empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
     public function test_get_step_next_intinary_with_empty_datas($datas): void
     {
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $next_step = $itinaryService->find_next_step($step_departure, $datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $step_departure = $itinaryCollection->find_departure_itinary();
+        $next_step = $itinaryCollection->find_next_step($step_departure);
         $this->assertIsArray($next_step);
     }
 
@@ -156,7 +157,7 @@ class GetNextStepItinaryTest extends TestCase
      /**
      * @test
      * Use Case get wrong datas to provider
-     * @covers \App\Services\ItinaryService::find_next_step
+     * @covers \App\Collections\ItinaryCollection::find_next_step
      * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
@@ -164,9 +165,9 @@ class GetNextStepItinaryTest extends TestCase
     {
         $this->expectException(ApiException::class);
 
-        $itinaryService = new ItinaryService();
-        $step_departure = $itinaryService->find_departure_itinary($datas);
-        $itinaryService->find_next_step($step_departure, $datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $step_departure = $itinaryCollection->find_departure_itinary();
+        $itinaryCollection->find_next_step($step_departure);
 
     }
 

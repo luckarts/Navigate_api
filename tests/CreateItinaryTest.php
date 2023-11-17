@@ -2,7 +2,7 @@ I<?php
 
 use PHPUnit\Framework\TestCase;
 use App\Exceptions\ApiException;
-use App\Services\ItinaryService;
+use Collections\ItinaryCollection;
 
 class CreateItinaryTest extends TestCase
 {
@@ -50,13 +50,13 @@ class CreateItinaryTest extends TestCase
      /**
      * @test
      * Use Case find first step in the itinary
-     * @covers \App\Services\ItinaryService::create_itirary
+     * @covers \App\Collections\ItinaryCollection::create_itirary
      * @dataProvider valid_itinary_provider
      */
     public function test_create_valid_itinerary(array $datas): void
     {
-        $itinaryService = new ItinaryService();
-        $itinerarySteps = $itinaryService->create_itirary($datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $itinerarySteps = $itinaryCollection->create_itirary();
         $this->assertIsArray($itinerarySteps);
     }
 
@@ -70,14 +70,14 @@ class CreateItinaryTest extends TestCase
      /**
      * @test
      * Use Case provider send empty datas
-     * @covers \App\Services\ItinaryService::create_itirary
+     * @covers \App\Collections\ItinaryCollection::create_itirary
      * @dataProvider empty_itinary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
     public function test_create_intinary_with_empty_datas(array $datas): void
     {
-        $itinaryService = new ItinaryService();
-        $itinerarySteps = $itinaryService->create_itirary($datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $itinerarySteps = $itinaryCollection->create_itirary();
         $this->assertIsArray($itinerarySteps);
         $this->assertEmpty($itinerarySteps);
     }
@@ -102,7 +102,7 @@ class CreateItinaryTest extends TestCase
      /**
      * @test
      * Use Case
-     * @covers \App\Services\ItinaryService::create_itirary
+     * @covers \App\Collections\ItinaryCollection::create_itirary
      * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
@@ -110,7 +110,7 @@ class CreateItinaryTest extends TestCase
     {
         $this->expectException(ApiException::class);
 
-        $itinaryService = new ItinaryService();
-        $itinaryService->create_itirary($datas);
+        $itinaryCollection = new ItinaryCollection($datas);
+        $itinerarySteps = $itinaryCollection->create_itirary();
     }
 }

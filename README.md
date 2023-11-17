@@ -32,6 +32,10 @@ Valider les tests unitaires en utilisant l'algorithme des services.
 
 - Le Controller va devoir appellée recuperer la collections les itineraires avec leurs differentes stepet il va utiliser le service precedant trier les étapes et definir une itineraire.
 
+- [] Créer le contrôleur en intégrant le Itinary service , la recuperation des datas et les services développés.
+- - [] Crée le Model Step
+- [] Crée la Collection Itineraire
+
 # Réaliser des tests d'intégration pour le contrôleur.
 
 - [] S'assurer que le contrôleur fonctionne comme prévu avec les services intégrés.
