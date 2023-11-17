@@ -34,7 +34,7 @@ class ItinaryService {
         }
 
         foreach ($itinary as $step){
-            if(!in_array($step["departure"], $destinations )) return $step;
+            if(!in_array($this->extract_city($step["departure"]), $destinations )) return $step;
         }
 
         return [];
@@ -68,7 +68,7 @@ class ItinaryService {
     {
         $order_itinary =[];
         $departure = $this->find_departure_itinary($itinary);
-        $next_departure = $this->find_next_step($departure, $itinary);
+        //$next_departure = $this->find_next_step($departure, $itinary);
 
         while ($departure !== []) {
 

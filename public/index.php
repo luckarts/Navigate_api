@@ -1,5 +1,7 @@
 <?php
 
+use Controllers\StepsController;
+
 
 require '../vendor/autoload.php';
 
@@ -11,5 +13,15 @@ if($_ENV['ENV'] == "dev") {
     ini_set('display_errors', 1);
 }
 
+$controller = new StepsController();
+
+
+try{
+    header('Content-Type: application/json');
+    echo json_encode($controller->index());
+
+}catch (\Exception $e) {
+    echo $e->getMessage();
+}
 
 

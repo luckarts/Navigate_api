@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Tests;
+
+
 use PHPUnit\Framework\TestCase;
 use App\Exceptions\ApiException;
 use App\Services\ItinaryService;
