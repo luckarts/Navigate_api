@@ -17,12 +17,12 @@ Afin que je puisse voir l'ordre complet des transports .
 
 # Écrire et exécuter des tests unitaires pour les trois fonctions.
 
-- [] Assurer la couverture de tous les cas possibles.
-  - [] Un itineraire doit avoir des données valide.
-  - [] Un itineraire peux ne pas avoir de données.
-- [] Un itineraire peux de mauvaise donnée.
-- [] Gestion des Erreurs lorsque l'itineraires est invalid
-- [] Les tests doivent etre faux car pas d'algorithme sous-jacent
+- [x] Assurer la couverture de tous les cas possibles.
+  - [x] Un itineraire doit avoir des données valide.
+  - [x] Un itineraire peux ne pas avoir de données.
+- [x] Un itineraire peux de mauvaise donnée.
+- [x] Gestion des Erreurs lorsque l'itineraires est invalid
+- [x] Les tests doivent etre faux car pas d'algorithme sous-jacent
 
 # Développer l'algorithme sous-jacent pour les services.
 
@@ -32,13 +32,16 @@ Valider les tests unitaires en utilisant l'algorithme des services.
 
 - Le Controller va devoir appellée recuperer la collections les itineraires avec leurs differentes stepet il va utiliser le service precedant trier les étapes et definir une itineraire.
 
-- [] Créer le contrôleur en intégrant le Itinary service , la recuperation des datas et les services développés.
-- - [] Crée le Model Step
-- [] Crée la Collection Itineraire
+- [x] Créer le contrôleur en intégrant le Itinary service , la recuperation des datas et les services développés.
+- [x] S'assurer que le contrôleur fonctionne comme prévu avec les services intégrés.
 
-# Réaliser des tests d'intégration pour le contrôleur.
+  # Reformate
 
-- [] S'assurer que le contrôleur fonctionne comme prévu avec les services intégrés.
+- [x] Crée le Model Step
+- [x] Crée la Collection Itineraire
+- [x] S'assurer que le contrôleur fonctionne avec le reformate
+
+  # Cette Api ne prend pas en compte plusieurs itineraires Comme plusieurs depart et plusieurs arrivée
 
 # Autres Features
 
