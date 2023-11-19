@@ -45,9 +45,6 @@ class ItinaryCollection implements \ArrayAccess {
         $this->arrivalCity[] = $this->extract_city($step["arrival"]);
         $this->stepsDict[$this->extract_city($step['departure'])] = $step;
 
-        if(!in_array($this->extract_city($step["departure"]), $this->arrivalCity )){
-            return $step;
-          }
     }
 
      /**
