@@ -6,13 +6,7 @@
     "transport": "Bus",
     "seat": "N/A"
   },
-  {
-    "id": 1,
-    "departure": "Madrid",
-    "arrival": "Barcelone",
-    "transport": "Train 78A",
-    "seat": "45B"
-  },
+
   {
     "id": 4,
     "departure": "Stockholm",
@@ -28,5 +22,12 @@
     "transport": "Vol SK455",
     "seat": "3A",
     "baggages": "Guichet 344"
+  },
+  {
+    "id": 1,
+    "departure": "Madrid",
+    "arrival": "Barcelone",
+    "transport": "Train 78A",
+    "seat": "45B"
   }
 ]

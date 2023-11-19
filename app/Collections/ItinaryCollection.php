@@ -3,6 +3,7 @@ namespace Collections;
 
 use App\Model\Step;
 use App\Exceptions\ApiException;
+use PhpParser\Node\Expr\NullsafePropertyFetch;
 
 /**
  * Represents a collection of ititnary.
@@ -13,7 +14,11 @@ class ItinaryCollection implements \ArrayAccess {
     protected $collection;
     private $values = [];
     private $stepsDict = [];
-    private $arrivalCity = [];
+    private $departureCities = [];
+    private $arrivalCities = [];
+    private $startingPoint = null ;
+    private $itinary = [];
+
 
     /**
      * @param array $values
@@ -42,9 +47,21 @@ class ItinaryCollection implements \ArrayAccess {
         if (!isset($step['arrival'])) {
             throw new ApiException("An error has occurred, missing departure city");
         }
-        $this->arrivalCity[] = $this->extract_city($step["arrival"]);
-        $this->stepsDict[$this->extract_city($step['departure'])] = $step;
+        $step['arrival'] = $this->extract_city($step['arrival']);
+        $step['departure'] = $this->extract_city($step['departure']);
 
+        $this->arrivalCities[] = $step["arrival"];
+        $this->departureCities[] = $step["departure"];
+        $this->stepsDict[$step['departure']] = $step;
+
+        // check if startingPoint exist
+        if (!isset($this->departureCities[$step['departure']])) {
+            $this->startingPoint = $step['departure'];
+        } elseif ($this->startingPoint === $step['arrival']){
+            $this->startingPoint = null;
+        }
+
+        $this->itinary[] = $step;
     }
 
      /**
@@ -64,12 +81,7 @@ class ItinaryCollection implements \ArrayAccess {
      */
     public function find_departure_itinary(): step|array
     {
-        foreach ($this->stepsDict as $step){
-            if(!in_array($this->extract_city($step["departure"]), $this->arrivalCity )){
-               return $step;
-             }
-        }
-        return [];
+        return $this->startingPoint != null ? $this->stepsDict[$this->startingPoint] : [];
     }
 
     /**
@@ -79,7 +91,7 @@ class ItinaryCollection implements \ArrayAccess {
     */
    public function find_next_step(array $departure): Step|array
    {
-        $arrivalCity = $this->extract_city($departure['arrival']) ?? '';
+        $arrivalCity = $departure['arrival'] ?? '';
         return $this->stepsDict[$arrivalCity] ?? [];
     }
 
