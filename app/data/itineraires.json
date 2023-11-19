@@ -8,8 +8,8 @@
   },
   {
     "id": 1,
-    "depart": "Madrid",
-    "arrive": "Barcelone",
+    "departure": "Madrid",
+    "arrival": "Barcelone",
     "transport": "Train 78A",
     "seat": "45B"
   },

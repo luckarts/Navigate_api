@@ -12,13 +12,42 @@ class ItinaryCollection implements \ArrayAccess {
 
     protected $collection;
     private $values = [];
+    private $stepsDict = [];
+    private $arrivalCity = [];
 
     /**
      * @param array $values
      */
     public function __construct($values)
     {
+        // Check if the itinary or departure is not empty
+        if (!is_array($values)) {
+            $values = [];
+        }
         $this->values = $values;
+
+        foreach ($values as $step) {
+            $this->populateDictionaries($step);
+        }
+    }
+    private function populateDictionaries($step) {
+
+
+        // Check if the departure city exists
+        if (!isset($step['departure'])) {
+            throw new ApiException("An error has occurred, missing departure city");
+        }
+
+        // Check if the arrival city exists
+        if (!isset($step['arrival'])) {
+            throw new ApiException("An error has occurred, missing departure city");
+        }
+        $this->arrivalCity[] = $this->extract_city($step["arrival"]);
+        $this->stepsDict[$this->extract_city($step['departure'])] = $step;
+
+        if(!in_array($this->extract_city($step["departure"]), $this->arrivalCity )){
+            return $step;
+          }
     }
 
      /**
@@ -38,31 +67,11 @@ class ItinaryCollection implements \ArrayAccess {
      */
     public function find_departure_itinary(): step|array
     {
-        $destinations = [];
-        if(empty($this->values)){
-            return [];
+        foreach ($this->stepsDict as $step){
+            if(!in_array($this->extract_city($step["departure"]), $this->arrivalCity )){
+               return $step;
+             }
         }
-
-        foreach ($this->values as $step){
-
-            // Check if the departure city exists
-            if (!isset($step['departure'])) {
-                throw new ApiException("An error has occurred, missing departure city");
-            }
-
-            // Check if the arrival city exists
-            if (!isset($step['arrival'])) {
-                throw new ApiException("An error has occurred, missing departure city");
-            }
-
-            // Return the current step if it's the departure itinerary
-            if (!in_array($this->extract_city($step['departure']), $destinations)) {
-                return $step;
-            }
-
-            $destinations[] = $step["arrival"];
-        }
-
         return [];
     }
 
@@ -73,21 +82,10 @@ class ItinaryCollection implements \ArrayAccess {
     */
    public function find_next_step(array $departure): Step|array
    {
-
-        // Check if the itinary or departure is not empty
-        if(empty($this->values) || empty($departure)){
-            return [];
-        }
-
-        // Return the next of itinerary
-        foreach($this->values as $step ) {
-            if($this->extract_city($step['departure']) === $this->extract_city($departure["arrival"])) {
-                return $step;
-            }
-        };
-
-        return [];
+        $arrivalCity = $this->extract_city($departure['arrival']) ?? '';
+        return $this->stepsDict[$arrivalCity] ?? [];
     }
+
    /**
     * Create the ititanry
     * @return ItinaryCollection
@@ -97,8 +95,7 @@ class ItinaryCollection implements \ArrayAccess {
         $order_itinary =[];
 
         // find departure of itinary
-        $departure = $this->find_departure_itinary($this->values);
-
+       $departure = $this->find_departure_itinary();
         // Add all next Step of itinary in order_itinary
         while ($departure !== []) {
             $order_itinary[] = $departure;
