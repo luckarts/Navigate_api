@@ -30,7 +30,7 @@ Valider les tests unitaires en utilisant l'algorithme des services.
 
 # Tâches de Développement du Contrôleur
 
-- Le Controller va devoir appellée recuperer la collections les itineraires avec leurs differentes stepet il va utiliser le service precedant trier les étapes et definir une itineraire.
+- Le Controller va devoir appellée recuperer la collections les itineraires avec leurs differentes steps et il va utiliser le service precedant trier les étapes et definir une itineraire.
 
 - [x] Créer le contrôleur en intégrant le Itinary service , la recuperation des datas et les services développés.
 - [x] S'assurer que le contrôleur fonctionne comme prévu avec les services intégrés.
