@@ -1,9 +1,12 @@
 <?php
 
-use Controllers\StepsController;
+use Dotenv\Dotenv;
+use App\Controllers\StepsController;
+
 
 
 require '../vendor/autoload.php';
+Dotenv::createImmutable(__DIR__ .  '/..')->load();
 
 /** start session if not already start */
 if(!isset($_SESSION)) session_start();
@@ -15,11 +18,11 @@ if($_ENV['ENV'] == "dev") {
 
 
 try{
-
     $controller = new StepsController();
-    // return to json format Api
-    header('Content-Type: application/json');
+  //  header('Content-Type: application/json');
     echo json_encode($controller->index());
+
+
 
 }catch (\Exception $e) {
 

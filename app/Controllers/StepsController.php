@@ -1,8 +1,9 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-use Collections\ItinaryCollection;
+use App\Collections\ItineraryCollection;
+
 
 
 /**
@@ -11,15 +12,15 @@ use Collections\ItinaryCollection;
 class StepsController
 {
 
+    /**
+     * Get the itinerary data from the JSON file
+     * Create the itinerary collection
+     * @return [type]
+     */
     public function index()
     {
-         // Get the itinerary data from the JSON file
-        $itineraryData = $this->getItineraryData();
-
-        // Create the itinerary collection
-        $itineraryCollection = new ItinaryCollection($itineraryData);
-
-        return  $itineraryCollection->create_itirary();
+        $itineraryCollection = new ItineraryCollection($this->getItineraryData());
+        return  $itineraryCollection->createItinerary();
     }
 
     /**
@@ -28,7 +29,6 @@ class StepsController
      */
     private function getItineraryData()
     {
-
         $datas = __DIR__ . "/../data/itineraires.json";
         if (!file_exists($datas)) {
             return [];

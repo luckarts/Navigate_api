@@ -1,19 +1,19 @@
-I<?php
+<?php
 
 use PHPUnit\Framework\TestCase;
 use App\Exceptions\ApiException;
-use Collections\ItinaryCollection;
+use Collections\itineraryCollection;
 
-class CreateItinaryTest extends TestCase
+class CreateItineraryTest extends TestCase
 {
 // Use Case 1 Valid
-// Use Case 2 No Itinary
+// Use Case 2 No itinerary
 // Use Case 4 Donnée Incorrect
 
     /**
      * Provides valid datas to service test.
      */
-    public static function valid_itinary_provider(): array
+    public static function valid_itinerary_provider(): array
     {
         return  [
                     [
@@ -49,35 +49,35 @@ class CreateItinaryTest extends TestCase
 
      /**
      * @test
-     * Use Case find first step in the itinary
-     * @covers \App\Collections\ItinaryCollection::create_itirary
-     * @dataProvider valid_itinary_provider
+     * Use Case find first step in the itinerary
+     * @covers \App\Collections\ItineraryCollection::createItinerary
+     * @dataProvider valid_itinerary_provider
      */
     public function test_create_valid_itinerary(array $datas): void
     {
-        $itinaryCollection = new ItinaryCollection($datas);
-        $itinerarySteps = $itinaryCollection->create_itirary();
+        $itineraryCollection = new ItineraryCollection($datas);
+        $itinerarySteps = $itineraryCollection->createItinerary();
         $this->assertIsArray($itinerarySteps);
     }
 
     /**
      * Provides empty datas to service test.
      */
-    public static function empty_itinary_provider(): array
+    public static function empty_itinerary_provider(): array
     {
         return  [['datas' => [] ]];
     }
      /**
      * @test
      * Use Case provider send empty datas
-     * @covers \App\Collections\ItinaryCollection::create_itirary
-     * @dataProvider empty_itinary_provider
+     * @covers \App\Collections\itineraryCollection::createItinerary
+     * @dataProvider empty_itinerary_provider
      * @expectedException : possibilité de renvoyer une erreur là ou dans une autre fonction
      */
-    public function test_create_intinary_with_empty_datas(array $datas): void
+    public function test_create_intinerary_with_empty_datas(array $datas): void
     {
-        $itinaryCollection = new ItinaryCollection($datas);
-        $itinerarySteps = $itinaryCollection->create_itirary();
+        $itineraryCollection = new itineraryCollection($datas);
+        $itinerarySteps = $itineraryCollection->createItinerary();
         $this->assertIsArray($itinerarySteps);
         $this->assertEmpty($itinerarySteps);
     }
@@ -99,18 +99,19 @@ class CreateItinaryTest extends TestCase
                             ]
                  ]];
     }
+
      /**
      * @test
      * Use Case
-     * @covers \App\Collections\ItinaryCollection::create_itirary
+     * @covers \App\Collections\itineraryCollection::createItinerary
      * @dataProvider wrong_datas_provider
      * @expectedException : An error has occurred, wrong datas
      */
-    public function test_create_intinary_with_wrong_datas(array $datas): void
+    public function test_create_intinerary_with_wrong_datas(array $datas): void
     {
         $this->expectException(ApiException::class);
 
-        $itinaryCollection = new ItinaryCollection($datas);
-        $itinerarySteps = $itinaryCollection->create_itirary();
+        $itineraryCollection = new itineraryCollection($datas);
+        $itinerarySteps = $itineraryCollection->createItinerary();
     }
 }

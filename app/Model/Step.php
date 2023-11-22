@@ -47,7 +47,7 @@ class Step {
     /**
      * @return string
      */
-    function geDeparture()
+    function getDeparture()
     {
         return $this->departure;
     }
