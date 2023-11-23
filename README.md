@@ -2,10 +2,10 @@
 
 Développer une API gérant un ensemble de cartes de transport en désordre,
 
-User story <br>
-En tant qu' utilisateur,<b>
-Je veux pouvoir avoir l'itinéraire d'un point A vers un point B
-Afin que je puisse voir l'ordre complet des transports .
+User story  
+en tant qu' utilisateur,  
+Je veux pouvoir avoir l'itinéraire d'un point A vers un point B  
+Afin que je puisse voir l'ordre complet des transports .  
 
 # Liste des Fonctions du Service :
 
