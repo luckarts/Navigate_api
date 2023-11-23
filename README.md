@@ -1,6 +1,6 @@
 # Project Navigate Api
 
-Sévelopper une API gérant un ensemble de cartes de transport en désordre,
+Développer une API gérant un ensemble de cartes de transport en désordre,
 
 User story
 En tant qu' utilisateur,
